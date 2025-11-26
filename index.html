@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>North Sussex Judo</title>
+  </head>
+
+  <body>
+    <h1>North Sussex Judo</h1>
+
+    <div class="wrapper">
+      <form id="form">
+        <h2>Cost Calculator</h2>
+        <hr />
+
+        <div class="inputs-wrapper">
+          <label for="athlete-name">Athlete Name</label>
+          <input type="text" id="athlete-name" name="athlete-name" required />
+
+          <div class="training-plan-wrapper" role="radiogroup">
+            <label>Training Plan</label>
+            <div class="radio-button-field">
+              <input
+                type="radio"
+                name="training-plan"
+                value="beginner"
+                required
+                checked
+              />
+              <label for="beginner">Beginner - 2 sessions p/wk</label>
+            </div>
+
+            <div class="radio-button-field">
+              <input
+                type="radio"
+                name="training-plan"
+                value="intermediate"
+                required
+              />
+              <label for="intermediate">Intermediate - 3 sessions p/wk</label>
+            </div>
+
+            <div class="radio-button-field">
+              <input type="radio" name="training-plan" value="elite" required />
+              <label for="elite">Elite - 5 sessions p/wk</label>
+            </div>
+          </div>
+
+          <div>
+            <label for="current-weight">Current Weight (kg)</label>
+            <input type="number" id="current-weight" name="current-weight" />
+          </div>
+
+          <div>
+            <label for="competitions-entered"
+              >Number of Competitions Entered this Month (Optional)</label
+            >
+            <input type="number" name="competitions-entered" />
+          </div>
+
+          <div>
+            <label for="private-coaching-hours"
+              >Number of Hours of Private Coaching (Optional)</label
+            >
+            <input type="number" name="private-coaching-hours" />
+          </div>
+
+          <div>
+            <button type="submit" id="submit-button">Submit</button>
+          </div>
+        </div>
+      </form>
+
+      <div class="athlete-info">
+        <h2>Athlete Information</h2>
+        <hr />
+
+        <div class="outputs-wrapper">
+          <div id="output" class="output-field">Awaiting Input...</div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

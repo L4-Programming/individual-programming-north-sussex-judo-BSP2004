@@ -1,0 +1,16 @@
+{
+  "recommendations": [
+    "formulahendry.auto-rename-tag",
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "donjayamanne.githistory",
+    "eamodio.gitlens",
+    "PKief.material-icon-theme",
+    "ritwickdey.LiveServer",
+    "oderwat.indent-rainbow",
+    "formulahendry.code-runner",
+    "WallabyJs.quokka-vscode",
+    "hnw.vscode-auto-open-markdown-preview",
+    "ms-vscode.js-debug"
+  ]
+}
