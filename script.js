@@ -2,8 +2,12 @@ document.getElementById("form").addEventListener("submit", function (event) {
   event.preventDefault();
 
   const name = document.getElementById("athlete-name").value;
-  const trainingPlan = document.querySelector("input[name='training-plan']:checked").value;
-  const currentWeight = parseFloat(document.getElementById("current-weight").value);
+  const trainingPlan = document.querySelector(
+    "input[name='training-plan']:checked"
+  ).value;
+  const currentWeight = parseFloat(
+    document.getElementById("current-weight").value
+  );
   const competitions = parseInt(
     document.querySelector("input[name='competitions-entered']").value || 0
   );
@@ -13,9 +17,7 @@ document.getElementById("form").addEventListener("submit", function (event) {
 
   let outputDiv = document.getElementById("output");
 
-  // -------------------------
   // Validation
-  // -------------------------
 
   if (privateHours < 0 || privateHours > 20) {
     outputDiv.textContent = "Private coaching hours must be between 0 and 20.";
@@ -27,9 +29,7 @@ document.getElementById("form").addEventListener("submit", function (event) {
     return;
   }
 
-  // -------------------------
   // Rates + Costs
-  // -------------------------
 
   const rates = {
     beginner: 25,
@@ -45,9 +45,7 @@ document.getElementById("form").addEventListener("submit", function (event) {
 
   const totalCost = trainingCost + competitionCost + privateCoachingCost;
 
-  // -------------------------
   // Build output text
-  // -------------------------
 
   let trainingName =
     trainingPlan.charAt(0).toUpperCase() + trainingPlan.slice(1);
@@ -56,7 +54,9 @@ document.getElementById("form").addEventListener("submit", function (event) {
     Athlete Name: ${name}<br><br>
     Training Plan: ${trainingName} — £${trainingCost.toFixed(2)}<br>
     Competitions Entered: ${competitions} — £${competitionCost.toFixed(2)}<br>
-    Private Coaching Hours: ${privateHours} — £${privateCoachingCost.toFixed(2)}<br><br>
+    Private Coaching Hours: ${privateHours} — £${privateCoachingCost.toFixed(
+    2
+  )}<br><br>
     <strong>Total Monthly Cost: £${totalCost.toFixed(2)}</strong>
   `;
 
