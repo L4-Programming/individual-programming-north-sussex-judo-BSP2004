@@ -15,7 +15,13 @@ document.getElementById("form").addEventListener("submit", function (event) {
     document.querySelector("input[name='private-coaching-hours']").value || 0
   );
 
-  let outputDiv = document.getElementById("output");
+  const outputDiv = document.getElementById("output");
+
+  // ✅ Competition rule check
+  if (competitions > 1) {
+    outputDiv.innerHTML = "⚠️ You can only enter 1 competition per month.";
+    return; // Stop running the rest of the code
+  }
 
   // Validation
 
@@ -32,10 +38,10 @@ document.getElementById("form").addEventListener("submit", function (event) {
   // Rates + Costs
 
   const rates = {
-    beginner: 25,
-    intermediate: 40,
-    elite: 60,
-    competitionFee: 12,
+    beginner: 25 * 4,
+    intermediate: 30 * 4,
+    elite: 35 * 4,
+    competitionFee: 22,
     privateCoachingRate: 25,
   };
 
