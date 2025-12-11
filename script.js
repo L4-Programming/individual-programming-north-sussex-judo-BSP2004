@@ -1,91 +1,86 @@
-document.getElementById("form").addEventListener("submit", function (event) {
-  event.preventDefault();
+// Get the form element
+const form = document.getElementById("form");
 
-  const name = document.getElementById("athlete-name").value;
+// Function to determine weight category
+function getWeightCategory(weight) {
+  if (weight <= 66) return "Flyweight";
+  if (weight <= 73) return "Lightweight";
+  if (weight <= 81) return "Light-Middleweight";
+  if (weight <= 90) return "Middleweight";
+  if (weight <= 100) return "Light-Heavyweight";
+  return "Heavyweight"; // Over 100 kg
+}
+
+// Event listener for form submission
+form.addEventListener("submit", function (event) {
+  event.preventDefault(); // prevent page reload
+
+  // 1. Collect input values
+  const name = document.getElementById("athlete-name").value.trim();
   const trainingPlan = document.querySelector(
     "input[name='training-plan']:checked"
   ).value;
   const currentWeight = parseFloat(
     document.getElementById("current-weight").value
   );
-
   const competitions = parseInt(
-    document.querySelector("input[name='competitions-entered']").value || 0
+    document.getElementById("competitions-entered").value || 0
   );
-
   const privateHours = parseFloat(
-    document.querySelector("input[name='private-coaching-hours']").value || 0
-  );
-
-  const weeklySessions = parseInt(
-    document.querySelector("#weekly-sessions").value || 0
+    document.getElementById("private-coaching-hours").value || 0
   );
 
   const outputDiv = document.getElementById("output");
 
-  // --- Competition rule ---
-  if (competitions > 1) {
-    outputDiv.textContent = "⚠️ You can only enter 1 competition per month.";
+  // 2. Validate inputs
+  if (name === "") {
+    alert("Please enter the athlete's name.");
     return;
   }
 
-  // --- Private hours rule ---
-  if (privateHours < 0 || privateHours > 20) {
-    outputDiv.textContent = "Private coaching hours must be between 0 and 20.";
+  if (privateHours < 0 || privateHours > 5) {
+    alert("Private coaching hours must be between 0 and 5 per week.");
     return;
   }
 
-  // --- Beginner – no competitions ---
   if (trainingPlan === "beginner" && competitions > 0) {
-    outputDiv.textContent = "Beginner athletes cannot enter competitions.";
+    alert("Beginner athletes cannot enter competitions.");
     return;
   }
 
-  // --- Weekly training session limits ---
-  const maxSessions = {
-    beginner: 2,
-    intermediate: 3,
-    elite: 5,
-  };
+  // 3. Define costs
+  const weeklyTrainingCost = { beginner: 25, intermediate: 30, elite: 35 }; // per week
+  const weeklySessions = { beginner: 2, intermediate: 3, elite: 5 };
+  const competitionFee = 22;
+  const privateCoachingRate = 9.5;
 
-  if (weeklySessions > maxSessions[trainingPlan]) {
-    outputDiv.textContent = `${
-      trainingPlan.charAt(0).toUpperCase() + trainingPlan.slice(1)
-    } athletes can train a maximum of ${
-      maxSessions[trainingPlan]
-    } times per week.`;
-    return;
-  }
-
-  // --- Cost calculation ---
-
-  const rates = {
-    beginner: 25 * 4,
-    intermediate: 30 * 4,
-    elite: 35 * 4,
-    competitionFee: 22,
-    privateCoachingRate: 25,
-  };
-
-  const trainingCost = rates[trainingPlan];
-  const competitionCost = competitions * rates.competitionFee;
-  const privateCoachingCost = privateHours * rates.privateCoachingRate;
-
+  // 4. Calculate costs
+  const trainingCost = weeklyTrainingCost[trainingPlan] * 4; // 4 weeks per month
+  const competitionCost =
+    trainingPlan !== "beginner" ? competitions * competitionFee : 0;
+  const privateCoachingCost = privateHours * privateCoachingRate * 4; // 4 weeks
   const totalCost = trainingCost + competitionCost + privateCoachingCost;
 
-  let trainingName =
-    trainingPlan.charAt(0).toUpperCase() + trainingPlan.slice(1);
+  // 5. Determine weight category
+  const category = getWeightCategory(currentWeight);
 
-  let message = `
-    Athlete Name: ${name}<br><br>
-    Training Plan: ${trainingName} — £${trainingCost.toFixed(2)}<br>
-    Weekly Sessions: ${weeklySessions}<br>
-    Competitions Entered: ${competitions} — £${competitionCost.toFixed(2)}<br>
-    Private Coaching Hours: ${privateHours} — £${privateCoachingCost.toFixed(
+  // 7. Display output
+  outputDiv.innerHTML = `
+    <p><strong>Athlete Name:</strong> ${name}</p>
+    <p><strong>Training Plan:</strong> ${
+      trainingPlan.charAt(0).toUpperCase() + trainingPlan.slice(1)
+    } — £${trainingCost.toFixed(2)}</p>
+    <p><strong>Weekly Sessions:</strong> ${weeklySessions[trainingPlan]}</p>
+    <p><strong>Competitions Entered:</strong> ${competitions} — £${competitionCost.toFixed(
     2
-  )}<br><br>
-    <strong>Total Monthly Cost: £${totalCost.toFixed(2)}</strong>
+  )}</p>
+    <p><strong>Private Coaching Hours:</strong> ${privateHours} — £${privateCoachingCost.toFixed(
+    2
+  )}</p>
+    <p><strong>Total Monthly Cost:</strong> £${totalCost.toFixed(2)}</p>
+    <p><strong>Weight Category:</strong> ${category}</p>
   `;
 
-  outputDiv.innerHTML = message;
+  // 8. Optional: reset form
+  form.reset();
 });
