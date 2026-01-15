@@ -4,9 +4,18 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>North Sussex Judo</title>
+    <link rel="stylesheet" href="styles.css" />
   </head>
-
   <body>
+    <style>
+      .display {
+        height: 150px;
+        width: 148px;
+        background-attachment: fixed;
+      }
+    </style>
+
+    <img class="mobile display" src="./asset/judo.jpg" alt="judo" />
     <h1>North Sussex Judo</h1>
 
     <div class="wrapper">
@@ -22,6 +31,7 @@
             <label>Training Plan</label>
             <div class="radio-button-field">
               <input
+                id="beginner"
                 type="radio"
                 name="training-plan"
                 value="beginner"
@@ -33,6 +43,7 @@
 
             <div class="radio-button-field">
               <input
+                id="intermediate"
                 type="radio"
                 name="training-plan"
                 value="intermediate"
@@ -42,28 +53,52 @@
             </div>
 
             <div class="radio-button-field">
-              <input type="radio" name="training-plan" value="elite" required />
+              <input
+                id="elite"
+                type="radio"
+                name="training-plan"
+                value="elite"
+                required
+              />
               <label for="elite">Elite - 5 sessions p/wk</label>
             </div>
           </div>
 
           <div>
             <label for="current-weight">Current Weight (kg)</label>
-            <input type="number" id="current-weight" name="current-weight" />
+            <input
+              type="number"
+              id="current-weight"
+              name="current-weight"
+              required
+              min="66"
+              max="150"
+            />
           </div>
-
           <div>
             <label for="competitions-entered"
               >Number of Competitions Entered this Month (Optional)</label
             >
-            <input type="number" name="competitions-entered" />
+            <input
+              type="number"
+              id="competitions-entered"
+              name="competitions-entered"
+              min="0"
+              max="1"
+            />
           </div>
 
           <div>
             <label for="private-coaching-hours"
               >Number of Hours of Private Coaching (Optional)</label
             >
-            <input type="number" name="private-coaching-hours" />
+            <input
+              type="number"
+              id="private-coaching-hours"
+              name="private-coaching-hours"
+              min="0"
+              max="5"
+            />
           </div>
 
           <div>
@@ -77,9 +112,10 @@
         <hr />
 
         <div class="outputs-wrapper">
-          <div id="output" class="output-field">Awaiting Input...</div>
+          <div id="output" class="output-field"></div>
         </div>
       </div>
     </div>
+    <script src="script.js"></script>
   </body>
 </html>
